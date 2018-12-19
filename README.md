@@ -1,6 +1,13 @@
 # HackerNewsScraper
 A simple command line application that outputs to STDOUT the top posts from https://news.ycombinator.com in JSON. 
 
+#### Validation rules 
+ 1. Title and author are non empty strings not longer than 256 characters.
+ 2. Uri is a valid URI
+ 3. Points, comments and rank are integers >= 0.
+
+##### N.B. Posts that don't follow the validation rules are ignored (except title and author are capped at 256 characters, if longer)
+
 ## TO RUN
 
 ### Method 1 from Docker Image (Google drive link):
