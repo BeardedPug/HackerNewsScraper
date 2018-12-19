@@ -44,12 +44,12 @@ public class NewsScraper {
             ArrayList<Post> results = scraper.scrape(resultsToGet, 1);
             ObjectMapper objectMapper = new ObjectMapper();
             try {
-                System.out.print(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(results));
+                System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(results));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.print("Number of posts requested must be a positive integer <= 100");
+            System.out.println("Number of posts requested must be a positive integer <= 100");
         }
     }
 }
