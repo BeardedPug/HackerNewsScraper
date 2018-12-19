@@ -3,12 +3,27 @@ A simple command line application that outputs to STDOUT the top posts from http
 
 ## TO RUN
 
+### Method 1 from Docker Image (Google drive link):
+- Download and setup docker from [here](https://www.docker.com/get-started)
+- Download docker image [here](https://drive.google.com/file/d/1R5MYrWh_ijlEdRZeZLZJy5wgpx6EPT6B/view?usp=sharing)
+- Open the terminal
+- cd to location of newscraper.tar
+- Load docker image: ```docker load --input newscraper.tar```
+- Run docker container: ```docker run -i -t newsscraperimg /bin/bash```
+- Now you are in the docker container you can use: ```newsscraper --posts n``` where n is a positive integer <=100
+
+### Method 2
+- Install git: [instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- Make a github account (if you don't have one already)
 - Clone this repository: ```git clone https://github.com/BeardedPug/HackerNewsScraper.git```
 - Download and setup docker from [here](https://www.docker.com/get-started)
+- Install gradle from [here](https://gradle.org)
 - Open the terminal
-- cd into HackerNewsScraper
-- Load docker image: ```docker load --input newsscraper.tar```
-- Run docker container: ```docker run -i -t cacbebe55e0f /bin/bash```
+- cd into HackerNewsScraper/hacker_news_scraper
+- Run ```gradle build```
+- Run ```gradle fatjar```
+- Create docker image: ```docker build -t newsscraperimg .```
+- Run docker container: ```docker run -i -t newsscraperimg /bin/bash```
 - Now you are in the docker container you can use: ```newsscraper --posts n``` where n is a positive integer <=100
 
 ## Technologies used
