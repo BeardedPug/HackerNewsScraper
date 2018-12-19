@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter @Setter
 @AllArgsConstructor
 @ToString
-public class Post {
+class Post {
 
     String title, uri, author;
     int points, comments, rank;
