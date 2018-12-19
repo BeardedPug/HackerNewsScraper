@@ -31,3 +31,14 @@ test {
     }
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'HackerNewsScraper',
+                'Implementation-Version': version,
+                'Main-Class': 'newsScraper.NewsScraper'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
