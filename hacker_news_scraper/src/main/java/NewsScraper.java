@@ -1,6 +1,7 @@
-/**
- * Take https://news.ycombinator.com
- * turn into json format for n posts
+/*
+   Take https://news.ycombinator.com
+   turn into json format for n posts
+   then output as pretty json to stdout
  */
 
 import com.fasterxml.jackson.core.JsonProcessingException;

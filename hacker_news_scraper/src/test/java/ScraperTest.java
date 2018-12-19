@@ -13,6 +13,7 @@ class ScraperTest {
 
     @BeforeAll
     static void setup(){
+        //Mock out of data for consistent testing
         testScraper = new Scraper("https://news.ycombinator.com/");
         testTitleRow= new Element("<body>");
         testTitleRow.html("<tr class=\"athing\" id=\"18663860\">\n" +
@@ -45,11 +46,11 @@ class ScraperTest {
 
     @Test
     void scrape() {
-        //Test less than 30 and more than 30 as it has to go multiple pages
+        //Test less than 30 and more than 30 as it has to go to multiple pages
         ArrayList<Post> returnedPosts = testScraper.scrape(10, 1);
         assertEquals(10, returnedPosts.size());
-        returnedPosts = testScraper.scrape(72, 1);
-        assertEquals(72, returnedPosts.size());
+        returnedPosts = testScraper.scrape(62, 1);
+        assertEquals(62, returnedPosts.size());
     }
 
     @Test

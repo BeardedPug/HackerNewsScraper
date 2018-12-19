@@ -1,6 +1,5 @@
-/**
- * Take https://news.ycombinator.com
- * turn into json format for n posts
+/*
+   POJO for each post the scraper finds
  */
 
 import lombok.Getter;

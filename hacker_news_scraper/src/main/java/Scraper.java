@@ -1,3 +1,14 @@
+/*
+    Scraper grabs to a page,
+    parses to element list,
+    runs through elements picking out posts,
+    validates posts based on rules,
+    if valid adds posts to results array
+    recursively runs till, it runs out of pages
+    or has found enough results
+    then returns results as ArrayList<Post>
+ */
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -16,13 +27,14 @@ class Scraper {
 
     ArrayList<Post> scrape(int resultsToGet, int pageNum){
         ArrayList<Post> resultsFound = new ArrayList<>();
-        if (resultsToGet > 0 && resultsToGet <= 100 && pageNum >= 0 && pageNum < 17) {
+        if (resultsToGet > 0 && resultsToGet <= 100 && pageNum > 0 && pageNum < 17) { //found pageNum can be maximum of 16
             try {
                 Document page = Jsoup.connect(url + "?p=" + pageNum).get();
                 Elements table = page.body().getElementsByClass("itemList").get(0).getElementsByTag("tr");
                 int ignoreConstant = 0;
                 while (resultsFound.size() != resultsToGet) {
                     if ((resultsFound.size() + ignoreConstant) == 30) {
+                        // 30 is maximum per page so recursively check pages
                         resultsFound.addAll(scrape((resultsToGet - resultsFound.size()), (pageNum + 1)));
                         return resultsFound;
                     } else {
@@ -34,6 +46,7 @@ class Scraper {
                         int points = getPoints(subTextRow);
                         int comments = getComments(subTextRow);
                         int rank = getRank(titleRow);
+                        // Ignore row if one element is missing
                         if (title.equals("") || articleUrl.equals("") || author.equals("") || points == -1 || comments == -1 || rank == -1) {
                             log.debug("ignored row");
                             log.debug(titleRow.toString());
@@ -73,6 +86,7 @@ class Scraper {
         String url;
         try {
             url = row.getElementsByClass("storyLink").attr("href");
+            // Check validity of url, will catch exception if not valid
             try {
                 new URI(url).parseServerAuthority();
             } catch (URISyntaxException e) {
@@ -105,7 +119,7 @@ class Scraper {
         int points;
         try {
             String pointStr = row.getElementsByClass("score").text();
-            pointStr = pointStr.replace("s", "");
+            pointStr = pointStr.replace("s", ""); // Get rid of plural first
             points = Integer.parseInt(pointStr.replace(" point", ""));
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -122,9 +136,10 @@ class Scraper {
             log.error(e.getMessage());
             return -1;
         }
+        // Check fo different wordings for comment, e.g. is discuss if no comments
         if ( comments.contains("comment")) {
             comments = comments.replace(" comment", "");
-            comments = comments.replace("s", "");
+            comments = comments.replace("s", ""); // Plural if comments more than one
             return Integer.parseInt(comments);
         } else if (comments.contains("discuss")) {
             return 0;
