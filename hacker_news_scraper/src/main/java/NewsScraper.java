@@ -6,6 +6,7 @@
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class NewsScraper {
             }
         } else {
             System.out.println("ERROR: Please pass the second command line arguments: --posts n");
-            System.out.println("Where n is the number of posts requested in the inclusive range 1-100");
+            System.out.println("Where n is the number of posts requested, as a positive integer <= 100");
             return;
         }
         if (0 <= resultsToGet && resultsToGet <= 100) {
@@ -49,7 +50,7 @@ public class NewsScraper {
                 e.printStackTrace();
             }
         } else {
-            System.out.print("Number of posts requested must be greater than 0 and less than 100");
+            System.out.print("Number of posts requested must be a positive integer <= 100");
         }
     }
 }
