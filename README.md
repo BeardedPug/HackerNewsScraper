@@ -12,7 +12,7 @@ A simple command line application that outputs to STDOUT the top posts from http
 - Now you are in the docker container you can use: ```newsscraper --posts n``` where n is a positive integer <=100
 
 ## Technologies used
-- [Gradle](https://junit.org/junit5/): Build tool for project and dependency management
+- [Gradle](https://gradle.org): Build tool for project and dependency management
 - [Docker](https://www.docker.com): Containerisation utility
 - [IntelliJ](https://www.jetbrains.com/idea/): IDE used
 
